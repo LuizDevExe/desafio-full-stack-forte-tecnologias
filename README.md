@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Desafio Full-Stack | Forte Tecnologias
 
 Olá, candidato(a)! Seja bem-vindo(a) ao nosso desafio de código.
@@ -123,3 +124,6 @@ Nós avaliaremos os seguintes pontos:
 -   **Diferenciais**: A implementação dos pontos bônus.
 
 Qualquer dúvida, estamos à disposição. Bom trabalho
+=======
+# desafio-full-stack-forte-tecnologias
+>>>>>>> b48da5f (Initial commit)
