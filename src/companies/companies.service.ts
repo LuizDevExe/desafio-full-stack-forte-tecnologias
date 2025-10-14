@@ -1,16 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CompaniesRepository } from './comapanies.repository';
+import { ResponseCompanyDto } from './dto/response-company.dto';
 
 @Injectable()
 export class CompaniesService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(private readonly repo: CompaniesRepository ){}
+
+  async create(data: CreateCompanyDto): Promise<ResponseCompanyDto>{
+    const company = await this.repo.create(data);
+    return new ResponseCompanyDto(company);
   }
 
-  findAll() {
-    return `This action returns all companies`;
+  async findAll(): Promise<ResponseCompanyDto[]> {
+    const companies = await this.repo.findAll();
+    return companies.map((comapany) =>  new ResponseCompanyDto(comapany))
   }
+
 
   findOne(id: number) {
     return `This action returns a #${id} company`;
