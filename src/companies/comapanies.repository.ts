@@ -34,8 +34,6 @@ export class CompaniesRepository{
   async update(id:string, data: UpdateCompanyDto){
     const existing =  await this.findOne(id);
 
-    console.log('Data update:', data);
-
     if (!existing) return null;
 
     return this.prisma.companies.update(
@@ -44,5 +42,17 @@ export class CompaniesRepository{
         data  
       }
     );
+  }
+
+  async remove(id: string){
+    const existing = await this.findOne(id);
+
+    if (!existing) return null;
+
+    await this.prisma.companies.delete({
+      where: {id: Number(id)}
+    });
+
+    return existing;
   }
 }

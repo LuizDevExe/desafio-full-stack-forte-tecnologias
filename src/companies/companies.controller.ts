@@ -28,8 +28,12 @@ export class CompaniesController {
     @Param('id') id: string,
     @Body() updateCompanyDto: UpdateCompanyDto,
   ): Promise<ResponseCompanyDto>{
-    console.log(updateCompanyDto);
     return this.companiesService.update(id, updateCompanyDto);
+  }
+  
+  @Delete(':id')
+  delete( @Param('id') id: string){
+    return this.companiesService.remove(id);
   }
   
 }

@@ -1,4 +1,3 @@
-import { Companies } from './../../generated/prisma/index.d';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -34,7 +33,6 @@ export class CompaniesService {
   async update(id: string, updateCompanyDto: UpdateCompanyDto): Promise<ResponseCompanyDto> {
     const updated =  await this.repo.update(id, updateCompanyDto);
 
-    console.log(updateCompanyDto)
 
     if(!updated){
       throw new NotFoundException(`Empresa com id ${id} não encontrada`);
@@ -43,7 +41,18 @@ export class CompaniesService {
     return plainToInstance(ResponseCompanyDto, updated, {excludeExtraneousValues: true});
     }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async remove(id: string) {
+      const deleted = await this.repo.remove(id);
+
+      if(!deleted){
+        throw new NotFoundException(`Empresa com id ${id} não encontrada`);
+      }
+
+      const data = plainToInstance(ResponseCompanyDto, deleted);
+
+      return {
+        message: `Empresa deletada com successo!`,
+        data
+      }
   }
 }
