@@ -1,1 +1,24 @@
-export class CreateEmployeeDto {}
+import { Expose } from 'class-transformer';
+import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator';
+
+export class CreateEmployeeDto {
+  @IsString({message: 'Campo precisa ser um texto válido'})
+  @IsNotEmpty({message: 'Campo não pode estar vazio'})
+  @Expose()
+  name: string;
+
+  @IsString({message: 'Campo precisa ser um texto válido'})
+  @IsNotEmpty({message: 'Campo não pode estar vazio'})
+  @Expose()
+  email: string;
+
+  @IsString({message: 'Campo precisa ser um texto válido'})
+  @IsNotEmpty({message: 'Campo não pode estar vazio'})
+  @Expose()
+  cpf: string;
+
+  @IsInt({message: 'Campo companieId aceita apenas números'})
+  @IsNotEmpty({message: 'Campo não pode estar vazio'})
+  @Expose()
+  companieId: number;
+}
