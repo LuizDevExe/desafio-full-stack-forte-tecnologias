@@ -1,11 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { EmployeesRepository } from './employees.repository';
 
 @Injectable()
 export class EmployeesService {
-  create(createEmployeeDto: CreateEmployeeDto) {
-    return 'This action adds a new employee';
+  constructor(private readonly repo: EmployeesRepository){}
+
+
+  async create(createEmployeeDto: CreateEmployeeDto) {
+    const existing = await this.repo.findByCpf(createEmployeeDto.cpf)
+
+    console.log(existing);
+
+    if(existing){
+          throw new BadRequestException('Já existe um employee cadastrado com esse CPF');
+    }
+
+    return this.repo.create(createEmployeeDto);
   }
 
   findAll() {
