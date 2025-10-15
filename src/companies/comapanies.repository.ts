@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "prisma/prisma.service";
 import { CreateCompanyDto } from "./dto/create-company.dto";
 import { ResponseCompanyDto } from "./dto/response-company.dto";
 import { Prisma } from "@prisma/client";
+import { UpdateCompanyDto } from "./dto/update-company.dto";
 
 @Injectable()
 export class CompaniesRepository{
@@ -25,5 +26,23 @@ export class CompaniesRepository{
   }
 
 
- 
+  async findOne(id:string){
+    return this.prisma.companies.findUnique({ where: { id: Number(id) } });
+  }
+    
+
+  async update(id:string, data: UpdateCompanyDto){
+    const existing =  await this.findOne(id);
+
+    console.log('Data update:', data);
+
+    if (!existing) return null;
+
+    return this.prisma.companies.update(
+      {
+        where: {id: Number(id)},
+        data  
+      }
+    );
+  }
 }
