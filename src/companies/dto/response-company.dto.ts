@@ -1,15 +1,17 @@
+import { Expose } from 'class-transformer';
 import { Companies } from 'generated/prisma';
 
 export class ResponseCompanyDto {
+  @Expose()
   id: number;
+
+  @Expose()
   name: string;
+
+  @Expose()
   cnpj: string;
 
-  constructor(company: Companies) {
-    this.id = company.id;
-    this.name = company.name;
-    this.cnpj = company.cnpj;
-  }
+
 }
 
 
