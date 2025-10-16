@@ -8,14 +8,17 @@ export class AssetsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createAssetDto: CreateAssetDto) {
+    const status =
+    createAssetDto.employeeId != null
+      ? 'EM_USO' 
+      : createAssetDto.status ?? 'DISPONIVEL';
+      
     return this.prisma.assets.create({
       data: {
         name: createAssetDto.name,
         type: createAssetDto.type,
         status: createAssetDto.status ?? 'DISPONIVEL',
-        ...(createAssetDto.employeeId
-          ? { employee: { connect: { id: createAssetDto.employeeId } } }
-          : {}),
+        employeeId: null
       },
     });
   }

@@ -32,6 +32,14 @@ export class AssetsController {
     return this.assetsService.update(id, updateAssetDto);
   }
 
+  @Patch(':assetId/associate/:employeeId')
+  associate(
+    @Param('assetId') assetId: string,
+    @Param('employeeId') employeeId: string,
+  ){
+    return this.assetsService.associate(assetId, employeeId);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.assetsService.remove(id);
