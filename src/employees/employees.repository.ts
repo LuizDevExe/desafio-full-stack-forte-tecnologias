@@ -1,3 +1,4 @@
+import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -14,7 +15,7 @@ export class EmployeesRepository {
           name: data.name,
           email: data.email,
           cpf: data.cpf,
-          company: { connect: { id: data.companieId } },
+          company: { connect: { id: data.companyId } },
         },
       });
     } catch (error) {
@@ -51,5 +52,29 @@ export class EmployeesRepository {
     }
 
     return existing;
+  }
+
+
+  async update(id: string, updateEmployeeDto: UpdateEmployeeDto){
+    const existing = await this.prisma.employees.findUnique({
+        where: {id: Number(id)}
+    })
+
+    if(!existing){
+        throw new NotFoundException('Employee não encontrado');
+    }
+
+    if(updateEmployeeDto.companyId){
+        throw new BadRequestException('O campo companyId não pode ser alterado');
+    }
+
+    if(updateEmployeeDto.cpf){
+        throw new BadRequestException('O campo CPF não pode ser alterado');
+    }
+
+    return this.prisma.employees.update({
+        where: {id: Number(id)},
+        data: updateEmployeeDto
+    });
   }
 }

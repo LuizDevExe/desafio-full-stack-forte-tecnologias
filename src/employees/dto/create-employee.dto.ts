@@ -18,8 +18,8 @@ export class CreateEmployeeDto {
   @Length(11,11, {message: 'O CPF deve conter no mínimo 11 dígitos'})
   cpf: string;
 
-  @IsInt({message: 'Campo companieId aceita apenas números'})
+  @IsInt({message: 'Campo companyId aceita apenas números'})
   @IsNotEmpty({message: 'Campo não pode estar vazio'})
   @Expose()
-  companieId: number;
+  companyId: number;
 }

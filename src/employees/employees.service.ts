@@ -25,8 +25,9 @@ export class EmployeesService {
     return plainToInstance(ResponseEmployeeDto, this.repo.findById(id));
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
+    const updatedEmployee = await this.repo.update(id,updateEmployeeDto);
+    return plainToInstance(UpdateEmployeeDto, updatedEmployee);
   }
 
   remove(id: number) {
