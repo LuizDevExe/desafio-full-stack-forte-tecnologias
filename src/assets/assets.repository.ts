@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
+import { UpdateAssetDto } from './dto/update-asset.dto';
 
 @Injectable()
 export class AssetsRepository {
@@ -27,5 +28,12 @@ export class AssetsRepository {
     return this.prisma.assets.findUnique({
         where: {id: Number(id)}
     });
+  }
+
+  async update(id: string, updateAssetDto: UpdateAssetDto){
+    return this.prisma.assets.update({
+        where: {id: Number(id)},
+        data: updateAssetDto
+    })
   }
 }
