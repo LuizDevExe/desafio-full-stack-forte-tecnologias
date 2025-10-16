@@ -24,7 +24,7 @@ model Employees {
   id         Int        @default(autoincrement()) @id
   cpf        String     @unique
   name       String
-  email      String
+  email      String     @unique
   company    Companies  @relation(fields: [companyId], references: [id])
   companyId  Int
   assets     Assets[]
