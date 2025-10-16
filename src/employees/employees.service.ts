@@ -12,7 +12,8 @@ export class EmployeesService {
 
 
   async create(createEmployeeDto: CreateEmployeeDto): Promise<ResponseEmployeeDto> {
-    return plainToInstance(ResponseEmployeeDto, this.repo.create(createEmployeeDto));
+    const createdEmployee = await this.repo.create(createEmployeeDto);
+    return plainToInstance(ResponseEmployeeDto, createdEmployee);
   }
 
 
@@ -22,7 +23,8 @@ export class EmployeesService {
   }
 
   async findOne(id: string): Promise<ResponseEmployeeDto> {
-    return plainToInstance(ResponseEmployeeDto, this.repo.findById(id));
+    const employee = await this.repo.findById(id);
+    return plainToInstance(ResponseEmployeeDto, employee);
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
