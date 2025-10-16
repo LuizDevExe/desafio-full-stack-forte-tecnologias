@@ -77,4 +77,19 @@ export class EmployeesRepository {
         data: updateEmployeeDto
     });
   }
+
+  async remove(id: string){
+    const existing = await this.prisma.employees.findUnique({
+        where: {id: Number(id)}
+    });
+
+    if(!existing){
+        throw new NotFoundException('Employee não encontrado');
+    }
+
+    return this.prisma.employees.delete({
+        where: {id: Number(id)}
+    });
+
+  }
 }

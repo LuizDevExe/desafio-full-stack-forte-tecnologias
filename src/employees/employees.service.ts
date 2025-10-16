@@ -32,7 +32,11 @@ export class EmployeesService {
     return plainToInstance(UpdateEmployeeDto, updatedEmployee);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: string) {
+    const deletedEmployee = await this.repo.remove(id);
+    return {
+      message: `Employee Deletado!`,
+      data: plainToInstance(ResponseEmployeeDto, deletedEmployee)
+    };
   }
 }
