@@ -1,6 +1,6 @@
 import { AssetStatus } from '@prisma/client';
 import { Expose } from 'class-transformer';
-import {  IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {  IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateAssetDto {
   @IsString({ message: 'Campo name precisa ser um texto válido' })
@@ -13,12 +13,12 @@ export class CreateAssetDto {
   @Expose()
   type: string;
 
+  @IsOptional()
   @IsEnum(AssetStatus)
   @Expose()
-  status?: AssetStatus;
+  status?: AssetStatus = AssetStatus.DISPONIVEL;
 
-  @IsInt({ message: 'Campo companyId aceita apenas números' })
-  @IsNotEmpty({ message: 'Campo employeeId não pode estar vazio' })
+  @IsOptional()
   @Expose()
   employeeId: number;
 }
