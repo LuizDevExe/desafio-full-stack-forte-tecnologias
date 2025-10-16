@@ -42,5 +42,5 @@ model Assets {
   type        String
   status      AssetStatus @default(DISPONIVEL)
   employee    Employees?  @relation(fields: [employeeId], references:[id])
-  employeeId  Int?
+  employeeId  Int? 
 }

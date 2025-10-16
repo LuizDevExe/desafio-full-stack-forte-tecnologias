@@ -27,7 +27,7 @@ CREATE TABLE "Assets" (
     "name" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "status" "AssetStatus" NOT NULL DEFAULT 'DISPONIVEL',
-    "employeeId" INTEGER NOT NULL,
+    "employeeId" INTEGER,
 
     CONSTRAINT "Assets_pkey" PRIMARY KEY ("id")
 );
@@ -38,8 +38,11 @@ CREATE UNIQUE INDEX "Companies_cnpj_key" ON "Companies"("cnpj");
 -- CreateIndex
 CREATE UNIQUE INDEX "Employees_cpf_key" ON "Employees"("cpf");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Employees_email_key" ON "Employees"("email");
+
 -- AddForeignKey
 ALTER TABLE "Employees" ADD CONSTRAINT "Employees_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Companies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Assets" ADD CONSTRAINT "Assets_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employees"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Assets" ADD CONSTRAINT "Assets_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employees"("id") ON DELETE SET NULL ON UPDATE CASCADE;
