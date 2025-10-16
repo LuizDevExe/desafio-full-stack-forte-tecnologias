@@ -30,6 +30,12 @@ export class AssetsRepository {
     });
   }
 
+  async listAssestsByEmployee(employeeId: string){
+    return this.prisma.assets.findMany({
+      where: { employeeId: Number(employeeId)}
+    });
+  }
+
   async update(id: string, updateAssetDto: UpdateAssetDto) {
     return this.prisma.assets.update({
       where: { id: Number(id) },

@@ -22,6 +22,11 @@ export class AssetsController {
     return this.assetsService.findOne(id);
   }
 
+  @Get('employee/:id')
+  listByEmployeId(@Param('id') id: string){
+    return this.assetsService.listAssetsByEmployee(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAssetDto: UpdateAssetDto) {
     return this.assetsService.update(id, updateAssetDto);

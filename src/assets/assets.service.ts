@@ -29,6 +29,17 @@ export class AssetsService {
     return plainToInstance(ResponseAssetDto, asset);
   }
 
+  async listAssetsByEmployee(id: string){    
+    const assets = await this.repo.listAssestsByEmployee(id);
+
+    if (assets.length === 0){
+      throw new NotFoundException('Nenhum asset vinculado ao employee');
+    }
+
+    return plainToInstance(ResponseAssetDto, assets);
+
+  }
+
   async update(id: string, updateAssetDto: UpdateAssetDto): Promise<ResponseAssetDto> {
     const asset = await this.repo.findOne(id);
 
