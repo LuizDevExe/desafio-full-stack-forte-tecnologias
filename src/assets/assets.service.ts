@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { ResponseAssetDto } from './dto/response-asset.dto';
@@ -14,12 +14,19 @@ export class AssetsService {
     return plainToInstance(ResponseAssetDto, asset, { excludeExtraneousValues: true });
   }
 
-  findAll() {
-    return `This action returns all assets`;
+  async findAll(): Promise<ResponseAssetDto[]>{
+    const assets = await this.repo.findAll();
+    return plainToInstance(ResponseAssetDto, assets);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} asset`;
+  async findOne(id: string): Promise <ResponseAssetDto> {
+    const asset = await this.repo.findOne(id);
+
+    if (!asset){
+      throw new NotFoundException('Asset não encontrado');
+    }
+
+    return plainToInstance(ResponseAssetDto, asset);
   }
 
   update(id: number, updateAssetDto: UpdateAssetDto) {

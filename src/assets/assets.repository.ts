@@ -18,4 +18,14 @@ export class AssetsRepository {
       },
     });
   }
+
+  async findAll(){
+    return this.prisma.assets.findMany();
+  }
+
+  async findOne(id: string){
+    return this.prisma.assets.findUnique({
+        where: {id: Number(id)}
+    });
+  }
 }
