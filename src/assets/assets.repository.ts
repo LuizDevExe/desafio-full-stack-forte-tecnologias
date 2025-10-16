@@ -20,20 +20,26 @@ export class AssetsRepository {
     });
   }
 
-  async findAll(){
+  async findAll() {
     return this.prisma.assets.findMany();
   }
 
-  async findOne(id: string){
+  async findOne(id: string) {
     return this.prisma.assets.findUnique({
-        where: {id: Number(id)}
+      where: { id: Number(id) },
     });
   }
 
-  async update(id: string, updateAssetDto: UpdateAssetDto){
+  async update(id: string, updateAssetDto: UpdateAssetDto) {
     return this.prisma.assets.update({
-        where: {id: Number(id)},
-        data: updateAssetDto
-    })
+      where: { id: Number(id) },
+      data: updateAssetDto,
+    });
+  }
+
+  async remove(id: string) {
+    return this.prisma.assets.delete({ 
+        where: { id: Number(id) } 
+    });
   }
 }

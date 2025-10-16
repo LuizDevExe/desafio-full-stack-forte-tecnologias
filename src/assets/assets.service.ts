@@ -35,12 +35,24 @@ export class AssetsService {
     if (!asset){
       throw new NotFoundException('Asset não encontrado');
     }
-      
+
 
     return plainToInstance(ResponseAssetDto, this.repo.update(id, updateAssetDto));
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} asset`;
+  async remove(id: string) {
+    const asset = await this.repo.findOne(id);
+
+    if (!asset){
+      throw new NotFoundException('Asset não encontrado');
+    }
+
+    const deleted = await this.repo.remove(id);
+
+    return {
+      message: 'Asset deletado!',
+      data: plainToInstance(ResponseAssetDto, deleted)
+    }
+
   }
 }
