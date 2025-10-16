@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { Prisma } from '@prisma/client';
@@ -33,14 +33,23 @@ export class EmployeesRepository {
     }
   }
 
-  async findByCpf(cpf: string) {
-    return await this.prisma.employees.findUnique({
-      where: { cpf },
-      include: { company: true },
-    });
-  }
+ 
 
   async findAll() {
     return this.prisma.employees.findMany();
+  }
+
+   async findById(id: string) {
+    const existing =  await this.prisma.employees.findUnique({
+      where: { id: Number(id) },
+      include: { company: true },
+     
+    });
+
+    if(!existing){
+        throw new NotFoundException('Employee não encontrado');
+    }
+
+    return existing;
   }
 }

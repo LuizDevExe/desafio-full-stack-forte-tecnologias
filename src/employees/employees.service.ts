@@ -21,8 +21,8 @@ export class EmployeesService {
     return employess.map((e) => plainToInstance(ResponseEmployeeDto, e));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: string): Promise<ResponseEmployeeDto> {
+    return plainToInstance(ResponseEmployeeDto, this.repo.findById(id));
   }
 
   update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
