@@ -34,8 +34,13 @@ export class EmployeesRepository {
     }
   }
 
- 
+  async findByCompany(companyId: string){
+    return this.prisma.employees.findMany({
+      where: { companyId: Number(companyId)}
+    })
+  }
 
+ 
   async findAll() {
     return this.prisma.employees.findMany();
   }

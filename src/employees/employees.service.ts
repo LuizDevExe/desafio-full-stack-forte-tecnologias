@@ -27,6 +27,11 @@ export class EmployeesService {
     return plainToInstance(ResponseEmployeeDto, employee);
   }
 
+  async findByCompany(companyId: string): Promise<ResponseEmployeeDto[]>{
+    const employees = await this.repo.findByCompany(companyId);
+    return plainToInstance(ResponseEmployeeDto, employees);
+  }
+
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     const updatedEmployee = await this.repo.update(id,updateEmployeeDto);
     return plainToInstance(UpdateEmployeeDto, updatedEmployee);

@@ -22,6 +22,11 @@ export class EmployeesController {
     return this.employeesService.findOne(id);
   }
 
+  @Get('/company/:id')
+  findByCompanyId(@Param('id') id: string){
+    return this.employeesService.findByCompany(id)
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
     return this.employeesService.update(id, updateEmployeeDto);
