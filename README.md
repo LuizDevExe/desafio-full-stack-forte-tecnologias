@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e3233d15 (Revise README for Full-Stack challenge details)
 # Desafio Full-Stack | Forte Tecnologias
 
 Olá, candidato(a)! Seja bem-vindo(a) ao nosso desafio de código.
