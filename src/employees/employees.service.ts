@@ -18,7 +18,7 @@ export class EmployeesService {
 
   async findAll(): Promise<ResponseEmployeeDto[]>{
     const employess = await this.repo.findAll();
-    return employess.map((e) => plainToClass(ResponseEmployeeDto, e));
+    return employess.map((e) => plainToInstance(ResponseEmployeeDto, e));
   }
 
   findOne(id: number) {
