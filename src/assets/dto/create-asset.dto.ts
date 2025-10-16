@@ -20,5 +20,6 @@ export class CreateAssetDto {
 
   @IsOptional()
   @Expose()
-  employeeId: number;
+  @IsInt()
+  employeeId: number | null;
 }

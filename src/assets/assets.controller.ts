@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
@@ -23,7 +31,7 @@ export class AssetsController {
   }
 
   @Get('employee/:id')
-  listByEmployeId(@Param('id') id: string){
+  listByEmployeId(@Param('id') id: string) {
     return this.assetsService.listAssetsByEmployee(id);
   }
 
@@ -36,8 +44,13 @@ export class AssetsController {
   associate(
     @Param('assetId') assetId: string,
     @Param('employeeId') employeeId: string,
-  ){
+  ) {
     return this.assetsService.associate(assetId, employeeId);
+  }
+
+  @Patch(':id/dissociate')
+  async dissociate(@Param('id') id: string) {
+    return this.assetsService.dissociate(id);
   }
 
   @Delete(':id')
